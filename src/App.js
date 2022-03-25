@@ -1,24 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { SeriesCounter } from './SeriesCounter';
+import { SeriesSearch } from './SeriesSearch';
+import { SeriesList } from './SeriesList';
+import { SeriesItem } from './SeriesItem';
+import { CreateSerieButton } from './CreateSerieButton';
+// import './App.css';
+
+const series = [
+  {titulo: 'Kimetsu no Yaiba', completed: false},
+  {titulo: 'Naruto', completed: false},
+  {titulo: 'Bleach', completed: false}
+]
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <SeriesCounter />
+      
+      <SeriesSearch />
+
+      <SeriesList>
+        {series.map( serie => (
+          <SeriesItem key={serie.titulo} text={serie.titulo} />
+        ))}
+      </SeriesList>
+
+      <CreateSerieButton />
+    </React.Fragment>
   );
 }
 
