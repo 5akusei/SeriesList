@@ -8,7 +8,7 @@ import { CreateSerieButton } from './CreateSerieButton';
 
 const series = [
   {titulo: 'Kimetsu no Yaiba', completed: false},
-  {titulo: 'Naruto', completed: false},
+  {titulo: 'Naruto', completed: true},
   {titulo: 'Bleach', completed: false}
 ]
 
@@ -21,7 +21,7 @@ function App() {
 
       <SeriesList>
         {series.map( serie => (
-          <SeriesItem key={serie.titulo} text={serie.titulo} />
+          <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
         ))}
       </SeriesList>
 

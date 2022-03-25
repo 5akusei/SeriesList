@@ -1,8 +1,9 @@
 import React from "react";
+import './CreateSerieButton.css';
 
 function CreateSerieButton(params) {
     return (
-        <button>+</button>
+        <button className="CreateSerieButton" >+</button>
     );
 }
 

@@ -1,8 +1,9 @@
 import React from "react";
+import './SeriesList.css';
 
 function SeriesList(props) {
     return (
-        <section>
+        <section className="SeriesList">
             <ul>
                 {props.children}
             </ul>

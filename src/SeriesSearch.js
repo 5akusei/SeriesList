@@ -1,8 +1,9 @@
 import React from "react";
+import './SeriesSearch.css'
 
 function SeriesSearch(props) {
     return (
-        <input placeholder='Gintama' />
+        <input className="SeriesSearch" placeholder='Gintama' />
     );
 }
 
