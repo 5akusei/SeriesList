@@ -1,0 +1,10 @@
+.SeriesInput label {
+    font-weight: 600;
+    color: #E13168;
+}
+
+.SeriesInput input[type='text'] {
+    background-color: #EFEFEF;
+    border: 1px solid #EFEFEF;
+    border-radius: 0.50rem;
+}

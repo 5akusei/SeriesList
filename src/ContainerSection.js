@@ -1,8 +1,9 @@
 import React from "react";
+import './ContainerSection.css';
 
 function ContainerSection(props) {
     return (
-        <div className="container-fluid">
+        <div className="col-12 col-md-6 ContainerSection">
             {props.children}
         </div>
     );
