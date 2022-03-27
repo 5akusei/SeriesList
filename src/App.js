@@ -3,7 +3,8 @@ import { SeriesCounter } from './SeriesCounter';
 import { SeriesSearch } from './SeriesSearch';
 import { SeriesList } from './SeriesList';
 import { SeriesItem } from './SeriesItem';
-import { CreateSerieButton } from './CreateSerieButton';
+import { ContainerSection } from './ContainerSection';
+// import { CreateSerieButton } from './CreateSerieButton';
 // import './App.css';
 
 const series = [
@@ -15,17 +16,21 @@ const series = [
 function App() {
   return (
     <React.Fragment>
-      <SeriesCounter />
-      
-      <SeriesSearch />
+      <ContainerSection>
+        
+      </ContainerSection>
 
-      <SeriesList>
-        {series.map( serie => (
-          <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
-        ))}
-      </SeriesList>
+      <ContainerSection>
+        <SeriesCounter />
+        
+        <SeriesSearch />
 
-      <CreateSerieButton />
+        <SeriesList>
+          {series.map( serie => (
+            <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
+          ))}
+        </SeriesList>
+      </ContainerSection>
     </React.Fragment>
   );
 }
