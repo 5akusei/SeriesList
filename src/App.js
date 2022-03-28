@@ -4,6 +4,7 @@ import { SeriesSearch } from './SeriesSearch';
 import { SeriesList } from './SeriesList';
 import { SeriesItem } from './SeriesItem';
 import { ContainerSection } from './ContainerSection';
+import { GenericWrapper } from './GenericWrapper';
 import { AddSerieButton } from './AddSerieButton';
 // import { CreateSerieButton } from './CreateSerieButton';
 // import './App.css';
@@ -36,15 +37,17 @@ function App() {
       </ContainerSection>
 
       <ContainerSection>
-        <SeriesCounter />
-        
-        <SeriesSearch />
+        <GenericWrapper>
+          <SeriesCounter />
+          
+          <SeriesSearch />
 
-        <SeriesList>
-          {series.map( serie => (
-            <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
-          ))}
-        </SeriesList>
+          <SeriesList>
+            {series.map( serie => (
+              <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
+            ))}
+          </SeriesList>
+        </GenericWrapper>
       </ContainerSection>
     </React.Fragment>
   );
