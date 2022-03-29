@@ -3,7 +3,10 @@ import './SeriesSearch.css'
 
 function SeriesSearch(props) {
     return (
-        <input className="SeriesSearch" placeholder='Gintama' />
+        <React.Fragment>
+            <input className="form-control SeriesSearch" placeholder='Gintama' />
+            <i class="fa fa-filter Icon-filter" aria-hidden="true"></i>
+        </React.Fragment>
     );
 }
 

@@ -6,6 +6,7 @@
     align-items: center;
     margin-top: 24px;
     box-shadow: 0px 5px 50px rgba(32, 35, 41, 0.15);
+    border-radius: .75rem;
   }
   
   .SeriesItem-p {
@@ -34,6 +35,7 @@
   .Icon-check {
     position: absolute;
     left: 12px;
+    font-size: 2.5rem;
   }
   .Icon-check--active {
     color: #4caf50;
