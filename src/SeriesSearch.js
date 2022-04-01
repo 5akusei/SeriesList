@@ -1,9 +1,11 @@
-import React from "react";
+import React, { useState } from "react";
 import './SeriesSearch.css'
 
 function SeriesSearch(props) {
+    const [searchValue, setSearchValue] = useState('');
+
     const onSearchValueChange = (event) => {
-        console.log(event.target.value);
+        setSearchValue(event.target.value);
     };
 
     return (
@@ -11,6 +13,7 @@ function SeriesSearch(props) {
             <input 
                 className="form-control SeriesSearch" placeholder='Gintama'
                 onChange={onSearchValueChange}
+                value={searchValue}
             />
             <i className="fa fa-filter Icon-filter" aria-hidden="true"></i>
         </React.Fragment>
