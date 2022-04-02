@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { SeriesCounter } from './SeriesCounter';
 import { SeriesSearch } from './SeriesSearch';
 import { SeriesList } from './SeriesList';
@@ -11,13 +11,34 @@ import { AddSerieButton } from './AddSerieButton';
 // import { CreateSerieButton } from './CreateSerieButton';
 // import './App.css';
 
-const series = [
-  {titulo: 'Kimetsu no Yaiba', completed: false},
-  {titulo: 'Naruto', completed: true},
-  {titulo: 'Bleach', completed: false}
+const defaultSeries = [
+  {titulo: 'Kimetsu no Yaiba', completed: true},
+  {titulo: 'Naruto', completed: false},
+  {titulo: 'Bleach', completed: true}
 ]
 
 function App() {
+  const [series, setSeries] = useState(defaultSeries);
+  const [searchValue, setSearchValue] = useState('');
+
+  const totalSeries = series.length;
+  const completedSeries = series.filter(serie => !!serie.completed).length;
+
+  let searchedSeries = [];
+
+  if (!searchValue.length >= 1) {
+    searchedSeries = series;
+  } else {
+    searchedSeries = series.filter(
+      serie => {
+        const serieTitle = serie.titulo.toLowerCase();
+        const searchText = searchValue.toLowerCase();
+        return serieTitle.includes(searchText);
+      }
+    );
+  }
+
+
   return (
     <React.Fragment>
       <ContainerSection>
@@ -29,12 +50,18 @@ function App() {
 
       <ContainerSection>
         <GenericWrapper>
-          <SeriesCounter />
+          <SeriesCounter
+            totalSeries={totalSeries}
+            completedSeries={completedSeries}
+          />
           
-          <SeriesSearch />
+          <SeriesSearch
+            searchValue={searchValue}
+            setSearchValue={setSearchValue}
+          />
 
           <SeriesList>
-            {series.map( serie => (
+            {searchedSeries.map( serie => (
               <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
             ))}
           </SeriesList>

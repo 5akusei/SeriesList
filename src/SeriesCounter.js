@@ -1,9 +1,9 @@
 import React from "react";
 import './SeriesCounter.css';
 
-function SeriesCounter() {
+function SeriesCounter({totalSeries, completedSeries}) {
     return (
-        <h2 className="SeriesCounter" >You have watched 2 of 3 series</h2>
+        <h2 className="SeriesCounter" >{`You have watched ${completedSeries} of ${totalSeries} series`}</h2>
     );
 }
 

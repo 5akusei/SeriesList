@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 import './SeriesSearch.css'
 
-function SeriesSearch(props) {
-    const [searchValue, setSearchValue] = useState('');
+function SeriesSearch({searchValue, setSearchValue}) {
 
     const onSearchValueChange = (event) => {
+        console.log(event.target.value);
         setSearchValue(event.target.value);
     };
 
