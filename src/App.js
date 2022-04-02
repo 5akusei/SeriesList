@@ -12,9 +12,9 @@ import { AddSerieButton } from './AddSerieButton';
 // import './App.css';
 
 const defaultSeries = [
-  {titulo: 'Kimetsu no Yaiba', completed: true},
-  {titulo: 'Naruto', completed: false},
-  {titulo: 'Bleach', completed: true}
+  {title: 'Kimetsu no Yaiba', completed: true},
+  {title: 'Naruto', completed: false},
+  {title: 'Bleach', completed: true}
 ]
 
 function App() {
@@ -31,13 +31,30 @@ function App() {
   } else {
     searchedSeries = series.filter(
       serie => {
-        const serieTitle = serie.titulo.toLowerCase();
+        const serieTitle = serie.title.toLowerCase();
         const searchText = searchValue.toLowerCase();
         return serieTitle.includes(searchText);
       }
     );
   }
 
+  const completeSerie = (title) => {
+    const serieIndex = series.findIndex( serie => serie.title === title);
+    const newSeriesList = [...series];
+    newSeriesList[serieIndex].completed = !newSeriesList[serieIndex].completed; 
+    setSeries(newSeriesList);
+  }
+
+  const deleteSerie = (title) => {
+    const serieIndex = series.findIndex( serie => serie.title === title);
+    const newSeriesList = [...series];
+    newSeriesList.splice(serieIndex, 1);
+    setSeries(newSeriesList);
+    
+    // Another way to delete
+    // const newSeriesList = series.filter(todo=>todo.text !== text)
+    // setSeries(newSeriesList);
+  }
 
   return (
     <React.Fragment>
@@ -62,7 +79,13 @@ function App() {
 
           <SeriesList>
             {searchedSeries.map( serie => (
-              <SeriesItem key={serie.titulo} text={serie.titulo} completed={serie.completed}/>
+              <SeriesItem 
+                key={serie.title} 
+                text={serie.title} 
+                completed={serie.completed}
+                onComplete={()=>{completeSerie(serie.title)}}
+                onDelete={()=>{deleteSerie(serie.title)}}
+              />
             ))}
           </SeriesList>
         </GenericWrapper>
