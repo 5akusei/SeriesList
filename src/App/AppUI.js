@@ -9,9 +9,18 @@ import { CardComponent } from '../CardComponent';
 import { SeriesInput } from '../SeriesInput';
 import { GenericWrapper } from '../GenericWrapper';
 import { AddSerieButton } from '../AddSerieButton';
+import { CreateSerieButton } from '../CreateSerieButton';
+import { Modal } from '../Modal';
 
 function AppUI() {
-  const {error, loading, deleteSerie, completeSerie, searchedSeries} = React.useContext(SerieContext);
+  const {
+    error, 
+    loading, 
+    modalStatus,
+    deleteSerie, 
+    completeSerie, 
+    searchedSeries
+  } = React.useContext(SerieContext);
 
     return (
         <React.Fragment>
@@ -43,6 +52,12 @@ function AppUI() {
                   />
                 ))}
               </SeriesList>
+              
+              {modalStatus && (<Modal>
+                <p>{searchedSeries[0]?.title}</p>
+              </Modal>)}
+
+              <CreateSerieButton />
             </GenericWrapper>
           </ContainerSection>
         </React.Fragment>

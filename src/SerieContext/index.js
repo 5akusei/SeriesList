@@ -10,7 +10,9 @@ function SerieProvider(props) {
       loading,
       error
     } = useLocalStorage('SERIES_V1', []);
+
     const [searchValue, setSearchValue] = useState('');
+    const [modalStatus, setModalStatus] = useState(false);
   
     const totalSeries = series.length;
     const completedSeries = series.filter(serie => !!serie.completed).length;
@@ -57,7 +59,8 @@ function SerieProvider(props) {
             searchedSeries,
             completeSerie,
             deleteSerie,
-
+            modalStatus,
+            setModalStatus
         }}>
             {props.children}
         </SerieContext.Provider>

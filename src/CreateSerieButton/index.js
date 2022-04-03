@@ -1,9 +1,19 @@
 import React from "react";
+import { SerieContext } from "../SerieContext";
 import './CreateSerieButton.css';
 
-function CreateSerieButton(params) {
+function CreateSerieButton() {
+    const {modalStatus, setModalStatus} = React.useContext(SerieContext);
+
+    const changeStatusModal = () => {
+        setModalStatus(!modalStatus);
+    };
+
     return (
-        <button className="CreateSerieButton" >+</button>
+        <button 
+            className="CreateSerieButton" 
+            onClick={changeStatusModal}
+        >+</button>
     );
 }
 
