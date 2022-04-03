@@ -8,18 +8,33 @@ import { AppUI } from './AppUI';
 //   {title: 'Bleach', completed: true}
 // ]
 
-function App() {
-  const localStorageSeries = localStorage.getItem('SERIES_V1');
-  let parsedSeries;
+// Custom hook for to get or set any item in localstorage.
+function useLocalStorage(itemName, initialValue) {
+  const localStorageItem = localStorage.getItem(itemName);
+  let parsedItem;
 
-  if (localStorageSeries) {
-    parsedSeries = JSON.parse(localStorageSeries);
+  if (localStorageItem) {
+    parsedItem = JSON.parse(localStorageItem);
   } else {
-    localStorage.setItem('SERIES_V1', JSON.stringify([]));
-    parsedSeries = [];
+    localStorage.setItem(itemName, JSON.stringify(initialValue));
+    parsedItem = initialValue;
   }
+  
+  const [item, setItem] = useState(parsedItem);
 
-  const [series, setSeries] = useState(parsedSeries);
+  const saveItem = (newItemList) => {
+    localStorage.setItem(itemName, JSON.stringify(newItemList));
+    setItem(newItemList);
+  };
+
+  return [
+    item,
+    saveItem,
+  ];
+} // end custom hook
+
+function App() {
+  const [series, saveSeries] = useLocalStorage('SERIES_V1', []);
   const [searchValue, setSearchValue] = useState('');
 
   const totalSeries = series.length;
@@ -39,27 +54,22 @@ function App() {
     );
   }
 
-  const saveSerie = (newSeriesList) => {
-    localStorage.setItem('SERIES_V1', JSON.stringify(newSeriesList));
-    setSeries(newSeriesList);
-  };
-
   const completeSerie = (title) => {
     const serieIndex = series.findIndex( serie => serie.title === title);
     const newSeriesList = [...series];
     newSeriesList[serieIndex].completed = !newSeriesList[serieIndex].completed; 
-    saveSerie(newSeriesList);
+    saveSeries(newSeriesList);
   }
 
   const deleteSerie = (title) => {
     const serieIndex = series.findIndex( serie => serie.title === title);
     const newSeriesList = [...series];
     newSeriesList.splice(serieIndex, 1);
-    saveSerie(newSeriesList);
+    saveSeries(newSeriesList);
     
     // Another way to delete
     // const newSeriesList = series.filter(todo=>todo.text !== text)
-    // saveSerie(newSeriesList);
+    // saveSeries(newSeriesList);
   }
 
   return (
