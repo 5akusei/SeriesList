@@ -10,6 +10,8 @@ import { GenericWrapper } from '../GenericWrapper';
 import { AddSerieButton } from '../AddSerieButton';
 
 function AppUI({
+    loading,
+    error,
     totalSeries,    
     completedSeries,
     searchValue,
@@ -40,6 +42,10 @@ function AppUI({
               />
     
               <SeriesList>
+                {error && <p className='alert alert-danger'>Ocurrio un error</p>}
+                {loading && <p className='alert alert-primary'>Cargando información</p>}
+                {(!loading && !searchedSeries.length) && <p className='alert alert-info'>No tienes series guardadas</p>}
+
                 {searchedSeries.map( serie => (
                   <SeriesItem 
                     key={serie.title} 

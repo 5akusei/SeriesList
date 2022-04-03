@@ -10,31 +10,56 @@ import { AppUI } from './AppUI';
 
 // Custom hook for to get or set any item in localstorage.
 function useLocalStorage(itemName, initialValue) {
-  const localStorageItem = localStorage.getItem(itemName);
-  let parsedItem;
-
-  if (localStorageItem) {
-    parsedItem = JSON.parse(localStorageItem);
-  } else {
-    localStorage.setItem(itemName, JSON.stringify(initialValue));
-    parsedItem = initialValue;
-  }
+  const [error, setError] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [item, setItem] = useState(initialValue);
   
-  const [item, setItem] = useState(parsedItem);
+  React.useEffect(() => {
+    // Simulating API request time
+    setTimeout(() => {
+      try {
+        const localStorageItem = localStorage.getItem(itemName);
+        let parsedItem;
+      
+        if (localStorageItem) {
+          parsedItem = JSON.parse(localStorageItem);
+        } else {
+          localStorage.setItem(itemName, JSON.stringify(initialValue));
+          parsedItem = initialValue;
+        }
 
+        setItem(parsedItem);
+        setLoading(false);
+      } catch (error) {
+        setError(error);
+      }
+    }, 2000);
+  });
+  
   const saveItem = (newItemList) => {
-    localStorage.setItem(itemName, JSON.stringify(newItemList));
-    setItem(newItemList);
+    try {
+      localStorage.setItem(itemName, JSON.stringify(newItemList));
+      setItem(newItemList);
+    } catch (error) {
+      setError(error);
+    }
   };
 
-  return [
+  return {
     item,
     saveItem,
-  ];
+    loading,
+    error,
+  };
 } // end custom hook
 
 function App() {
-  const [series, saveSeries] = useLocalStorage('SERIES_V1', []);
+  const {
+    item:series,
+    saveItem:saveSeries,
+    loading,
+    error
+  } = useLocalStorage('SERIES_V1', []);
   const [searchValue, setSearchValue] = useState('');
 
   const totalSeries = series.length;
@@ -74,6 +99,8 @@ function App() {
 
   return (
     <AppUI 
+      loading={loading}
+      error={error}
       totalSeries={totalSeries}
       completedSeries={completedSeries}
       searchValue={searchValue}
