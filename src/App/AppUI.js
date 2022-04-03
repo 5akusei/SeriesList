@@ -1,4 +1,5 @@
 import React from 'react';
+import { SerieContext } from '../SerieContext';
 import { SeriesCounter } from '../SeriesCounter';
 import { SeriesSearch } from '../SeriesSearch';
 import { SeriesList } from '../SeriesList';
@@ -9,17 +10,7 @@ import { SeriesInput } from '../SeriesInput';
 import { GenericWrapper } from '../GenericWrapper';
 import { AddSerieButton } from '../AddSerieButton';
 
-function AppUI({
-    loading,
-    error,
-    totalSeries,    
-    completedSeries,
-    searchValue,
-    setSearchValue,
-    searchedSeries,
-    completeSerie,
-    deleteSerie,
-}) {
+function AppUI() {
     return (
         <React.Fragment>
           <ContainerSection>
@@ -31,31 +22,29 @@ function AppUI({
     
           <ContainerSection>
             <GenericWrapper>
-              <SeriesCounter
-                totalSeries={totalSeries}
-                completedSeries={completedSeries}
-              />
+              <SeriesCounter />
               
-              <SeriesSearch
-                searchValue={searchValue}
-                setSearchValue={setSearchValue}
-              />
+              <SeriesSearch />
     
-              <SeriesList>
-                {error && <p className='alert alert-danger'>Ocurrio un error</p>}
-                {loading && <p className='alert alert-primary'>Cargando información</p>}
-                {(!loading && !searchedSeries.length) && <p className='alert alert-info'>No tienes series guardadas</p>}
+              <SerieContext.Consumer>
+                {({error, loading, deleteSerie, completeSerie, searchedSeries}) => (
+                  <SeriesList>
+                    {error && <p className='alert alert-danger'>Ocurrio un error</p>}
+                    {loading && <p className='alert alert-primary'>Cargando información</p>}
+                    {(!loading && !searchedSeries.length) && <p className='alert alert-info'>No tienes series guardadas</p>}
 
-                {searchedSeries.map( serie => (
-                  <SeriesItem 
-                    key={serie.title} 
-                    text={serie.title} 
-                    completed={serie.completed}
-                    onComplete={()=>{completeSerie(serie.title)}}
-                    onDelete={()=>{deleteSerie(serie.title)}}
-                  />
-                ))}
-              </SeriesList>
+                    {searchedSeries.map( serie => (
+                      <SeriesItem 
+                        key={serie.title} 
+                        text={serie.title} 
+                        completed={serie.completed}
+                        onComplete={()=>{completeSerie(serie.title)}}
+                        onDelete={()=>{deleteSerie(serie.title)}}
+                      />
+                    ))}
+                  </SeriesList>
+                )}
+              </SerieContext.Consumer>
             </GenericWrapper>
           </ContainerSection>
         </React.Fragment>
