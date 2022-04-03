@@ -1,7 +1,9 @@
 import React from "react";
+import { SerieContext } from "../SerieContext";
 import './SeriesSearch.css'
 
-function SeriesSearch({searchValue, setSearchValue}) {
+function SeriesSearch() {
+    const {searchValue, setSearchValue} = React.useContext(SerieContext);
 
     const onSearchValueChange = (event) => {
         console.log(event.target.value);

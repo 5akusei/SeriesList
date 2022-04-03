@@ -11,6 +11,8 @@ import { GenericWrapper } from '../GenericWrapper';
 import { AddSerieButton } from '../AddSerieButton';
 
 function AppUI() {
+  const {error, loading, deleteSerie, completeSerie, searchedSeries} = React.useContext(SerieContext);
+
     return (
         <React.Fragment>
           <ContainerSection>
@@ -26,25 +28,21 @@ function AppUI() {
               
               <SeriesSearch />
     
-              <SerieContext.Consumer>
-                {({error, loading, deleteSerie, completeSerie, searchedSeries}) => (
-                  <SeriesList>
-                    {error && <p className='alert alert-danger'>Ocurrio un error</p>}
-                    {loading && <p className='alert alert-primary'>Cargando información</p>}
-                    {(!loading && !searchedSeries.length) && <p className='alert alert-info'>No tienes series guardadas</p>}
+              <SeriesList>
+                {error && <p className='alert alert-danger'>Ocurrio un error</p>}
+                {loading && <p className='alert alert-primary'>Cargando información</p>}
+                {(!loading && !searchedSeries.length) && <p className='alert alert-info'>No tienes series guardadas</p>}
 
-                    {searchedSeries.map( serie => (
-                      <SeriesItem 
-                        key={serie.title} 
-                        text={serie.title} 
-                        completed={serie.completed}
-                        onComplete={()=>{completeSerie(serie.title)}}
-                        onDelete={()=>{deleteSerie(serie.title)}}
-                      />
-                    ))}
-                  </SeriesList>
-                )}
-              </SerieContext.Consumer>
+                {searchedSeries.map( serie => (
+                  <SeriesItem 
+                    key={serie.title} 
+                    text={serie.title} 
+                    completed={serie.completed}
+                    onComplete={()=>{completeSerie(serie.title)}}
+                    onDelete={()=>{deleteSerie(serie.title)}}
+                  />
+                ))}
+              </SeriesList>
             </GenericWrapper>
           </ContainerSection>
         </React.Fragment>
