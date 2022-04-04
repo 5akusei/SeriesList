@@ -11,6 +11,7 @@ import { GenericWrapper } from '../GenericWrapper';
 import { AddSerieButton } from '../AddSerieButton';
 import { CreateSerieButton } from '../CreateSerieButton';
 import { Modal } from '../Modal';
+import { SerieForm } from '../SerieForm';
 
 function AppUI() {
   const {
@@ -54,7 +55,7 @@ function AppUI() {
               </SeriesList>
               
               {modalStatus && (<Modal>
-                <p>{searchedSeries[0]?.title}</p>
+                <SerieForm />
               </Modal>)}
 
               <CreateSerieButton />

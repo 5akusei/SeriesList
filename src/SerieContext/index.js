@@ -13,6 +13,7 @@ function SerieProvider(props) {
 
     const [searchValue, setSearchValue] = useState('');
     const [modalStatus, setModalStatus] = useState(false);
+    const [serieInfo, setSerieInfo] = useState('');
   
     const totalSeries = series.length;
     const completedSeries = series.filter(serie => !!serie.completed).length;
@@ -30,7 +31,13 @@ function SerieProvider(props) {
         }
       );
     }
-  
+    
+    const addSerie = (title) => {
+      const newSeriesList = [...series];
+      newSeriesList.push({title:title, completed:false});
+      saveSeries(newSeriesList);
+    }
+
     const completeSerie = (title) => {
       const serieIndex = series.findIndex( serie => serie.title === title);
       const newSeriesList = [...series];
@@ -57,10 +64,13 @@ function SerieProvider(props) {
             searchValue,
             setSearchValue,
             searchedSeries,
+            addSerie,
             completeSerie,
             deleteSerie,
             modalStatus,
-            setModalStatus
+            setModalStatus,
+            serieInfo,
+            setSerieInfo,
         }}>
             {props.children}
         </SerieContext.Provider>

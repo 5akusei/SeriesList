@@ -1,17 +1,20 @@
 import React from "react";
+import { SerieContext } from "../SerieContext";
 import './AddSerieButton.css';
 
 
 function AddSerieButton(props) {
-    const addSerie = () => {
-        console.log("Se agrego una serie");
-        alert("Se agrego una serie"); // TODO: hacer modal
+    const { addSerie, serieInfo } = React.useContext(SerieContext);
+    
+    const addNewSerie = () => {
+        addSerie(serieInfo);
+        document.getElementById('inputSerieName').value = "";
     };
     
     return (
         <button 
             className="btn AddSerieButton"
-            onClick={addSerie}
+            onClick={addNewSerie}
         >
             Add serie
         </button>

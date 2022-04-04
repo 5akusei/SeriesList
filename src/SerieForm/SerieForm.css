@@ -1,0 +1,30 @@
+form {
+    width: 90%;
+    max-width: 400px;
+    background-color: #fff;
+    padding: 33px 40px;
+    display: flex;
+    align-content: center;
+    flex-direction: column;
+    border-radius: .5rem;
+}
+
+form input::placeholder {
+    font-size: .8rem;
+}
+
+label {
+    text-align: center;
+    font-weight: bold;
+    font-size: 1.4rem;
+    margin-bottom: 1rem;
+    color: black;
+}
+
+.SerieForm-buttonContainer {
+    margin-top: 14px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
